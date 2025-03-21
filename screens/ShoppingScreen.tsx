@@ -9,7 +9,7 @@ export default function ShoppingScreen({navigation}: Props) {
   return (
     <View>
       <TouchableOpacity onPress={() => navigation.navigate(RouteNames.BROWSER)}>
-        <MaterialCommunityIcons name="arrow-left" size={30} />
+        <MaterialCommunityIcons name="shopping" size={30} />
       </TouchableOpacity>
     </View>
   );
