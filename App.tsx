@@ -6,15 +6,40 @@ import ShoppingScreen from './screens/ShoppingScreen';
 import {RootStackParamList, RouteNames} from './routes';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BrowserScreen from './screens/BrowserScreen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+const HomeIcon = ({focused, color}: {focused: boolean; color: string}) => {
+  const iconName = focused ? 'home' : 'home-outline';
+  return <MaterialCommunityIcons name={iconName} size={26} color={color} />;
+};
+
+const shoppingIcon = ({focused, color}: {focused: boolean; color: string}) => {
+  const iconName = focused ? 'shopping' : 'shopping-outline';
+  return <MaterialCommunityIcons name={iconName} size={26} color={color} />;
+};
 const HomeTab = () => {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name={RouteNames.Home} component={HomeScreen} />
-      <Tab.Screen name={RouteNames.Shopping} component={ShoppingScreen} />
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: 'black',
+        },
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'white',
+      }}>
+      <Tab.Screen
+        name={RouteNames.Home}
+        component={HomeScreen}
+        options={{tabBarLabel: '홈', tabBarIcon: HomeIcon, headerShown: false}}
+      />
+      <Tab.Screen
+        name={RouteNames.Shopping}
+        component={ShoppingScreen}
+        options={{tabBarLabel: '쇼핑', tabBarIcon: shoppingIcon}}
+      />
     </Tab.Navigator>
   );
 };
@@ -27,7 +52,11 @@ function App(): React.JSX.Element {
           component={HomeTab}
           options={{headerShown: false}}
         />
-        <Stack.Screen name={RouteNames.BROWSER} component={BrowserScreen} />
+        <Stack.Screen
+          name={RouteNames.BROWSER}
+          component={BrowserScreen}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
