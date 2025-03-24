@@ -9,7 +9,7 @@ export default function HomeScreen({navigation}: Props) {
   return (
     <SafeAreaView style={styles.safearea}>
       <WebView
-        source={{uri: 'https://m.naver.com'}}
+        source={{uri: 'https://m.naver.com/'}}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         onShouldStartLoadWithRequest={request => {
