@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import WebView from 'react-native-webview';
 import {RootStackParamList, RouteNames} from '../routes';
-import {useCallback, useRef, useState} from 'react';
+import {useCallback, useContext, useRef, useState} from 'react';
+import {WebViewContext} from '../components/WebViewProvider';
 
 type Props = NativeStackScreenProps<RootStackParamList>;
 
@@ -15,8 +16,9 @@ const SHOPPING_HOME_URL = 'https://shopping.naver.com/home';
 
 export default function ShoppingScreen({navigation}: Props) {
   const [refreshing, setRefreshing] = useState(false);
+  const context = useContext(WebViewContext);
 
-  const webBiewRef = useRef<WebView>(null);
+  const webBiewRef = useRef<WebView | null>(null);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -30,7 +32,12 @@ export default function ShoppingScreen({navigation}: Props) {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <WebView
-          ref={webBiewRef}
+          ref={ref => {
+            webBiewRef.current = ref;
+            if (ref != null) {
+              context?.addWebView(ref);
+            }
+          }}
           source={{uri: SHOPPING_HOME_URL}}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}

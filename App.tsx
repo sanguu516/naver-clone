@@ -9,6 +9,7 @@ import BrowserScreen from './screens/BrowserScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoginButton from './components/LoginButton';
 import LoginScreens from './screens/LoginScreens';
+import {WebViewProvider} from './components/WebViewProvider';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -55,33 +56,35 @@ const HomeTab = () => {
 };
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name={RouteNames.HOME_TAB}
-          component={HomeTab}
-          options={{
-            title: '',
-            headerStyle: {backgroundColor: 'black'},
-            headerRight: LoginButton,
-          }}
-        />
-        <Stack.Screen
-          name={RouteNames.BROWSER}
-          component={BrowserScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name={RouteNames.LOGIN}
-          component={LoginScreens}
-          options={{
-            headerStyle: {backgroundColor: 'black'},
-            headerTintColor: 'white',
-            title: '',
-          }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <WebViewProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name={RouteNames.HOME_TAB}
+            component={HomeTab}
+            options={{
+              title: '',
+              headerStyle: {backgroundColor: 'black'},
+              headerRight: LoginButton,
+            }}
+          />
+          <Stack.Screen
+            name={RouteNames.BROWSER}
+            component={BrowserScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name={RouteNames.LOGIN}
+            component={LoginScreens}
+            options={{
+              headerStyle: {backgroundColor: 'black'},
+              headerTintColor: 'white',
+              title: '',
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </WebViewProvider>
   );
 }
 

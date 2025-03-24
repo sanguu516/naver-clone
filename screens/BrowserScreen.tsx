@@ -10,8 +10,9 @@ import {
 import WebView from 'react-native-webview';
 import {RootStackParamList} from '../routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useMemo, useRef, useState} from 'react';
+import {useContext, useMemo, useRef, useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {WebViewContext} from '../components/WebViewProvider';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'browser'>;
 
@@ -34,6 +35,8 @@ const NavButton = ({
 };
 
 export default function BrowserScreen({route, navigation}: Props) {
+  const context = useContext(WebViewContext);
+
   const {initialUrl} = route.params ?? {initialUrl: ''};
   const [url, setUrl] = useState(initialUrl);
   const [canGoBack, setCanGoBack] = useState(false);
@@ -45,7 +48,7 @@ export default function BrowserScreen({route, navigation}: Props) {
 
   const progressAnim = useRef(new Animated.Value(0)).current;
 
-  const webBiewRef = useRef<WebView>(null);
+  const webviewRef = useRef<WebView | null>(null);
 
   return (
     <SafeAreaView style={styles.safearea}>
@@ -68,7 +71,12 @@ export default function BrowserScreen({route, navigation}: Props) {
         />
       </View>
       <WebView
-        ref={webBiewRef}
+        ref={ref => {
+          webviewRef.current = ref;
+          if (ref != null) {
+            context?.addWebView(ref);
+          }
+        }}
         source={{uri: initialUrl}}
         onNavigationStateChange={e => {
           setCanGoBack(e.canGoBack);
@@ -96,20 +104,20 @@ export default function BrowserScreen({route, navigation}: Props) {
           iconName="arrow-left"
           disabled={!canGoBack}
           onPress={() => {
-            webBiewRef.current?.goBack();
+            webviewRef.current?.goBack();
           }}
         />
         <NavButton
           iconName="arrow-right"
           onPress={() => {
-            webBiewRef.current?.goForward();
+            webviewRef.current?.goForward();
           }}
           disabled={!canGoForward}
         />
         <NavButton
           iconName="reload"
           onPress={() => {
-            webBiewRef.current?.reload();
+            webviewRef.current?.reload();
           }}
         />
         <NavButton

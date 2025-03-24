@@ -944,6 +944,8 @@ PODS:
   - React-Mapbuffer (0.73.8):
     - glog
     - React-debug
+  - react-native-cookies (6.2.1):
+    - React-Core
   - react-native-safe-area-context (5.3.0):
     - React-Core
   - react-native-vector-icons (11.0.0):
@@ -1186,6 +1188,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector-modern`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
+  - "react-native-cookies (from `../node_modules/@react-native-cookies/cookies`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - "react-native-vector-icons (from `../node_modules/@react-native-vector-icons/common`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
@@ -1285,6 +1288,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   React-Mapbuffer:
     :path: "../node_modules/react-native/ReactCommon"
+  react-native-cookies:
+    :path: "../node_modules/@react-native-cookies/cookies"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-vector-icons:
@@ -1378,6 +1383,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 1729acf5ffe2d4439d698da25fddf0c75d07d1a1
   React-logger: 7904abd7e1299754785e356af15ec9d1e9439901
   React-Mapbuffer: d56122e84907e9a6dad428c83cd2bd0d3dc64f71
+  react-native-cookies: d648ab7025833b977c0b19e142503034f5f29411
   react-native-safe-area-context: fdb0a66feac038cb6eb1edafcf2ccee2b5cf0284
   react-native-vector-icons: 31caad1faa2fedf366bf4c1ff2491b44c65fa586
   react-native-webview: 8fd271a5b5c027fd640f00465aeac44bfa16d5a9
